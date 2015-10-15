@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1= title
+    p Data courtesy of the 
+        a(href='http://data.ottawa.ca/en/dataset/tennis-courts') City of Ottawa Open Data Catalog
+        |  under their 
+        a(href='http://ottawa.ca/en/mobile-apps-and-open-data/open-data-terms-use') terms of use
+        | , September 2014.
+    table
+        tr
+            each value, index in fields
+                th= value
+        each record in list
+            tr
+                each value, index in fields
+                    if (index === "ADDRESS")
+                        - var link = "https://www.google.ca/maps/place/" + record['ADDRESS'].replace(/ /g, "+", g) + "+Ottawa"
+                        td
+                            a(href='#{link}')= record[index]
+                    else
+                        td= record[index]
